@@ -124,14 +124,14 @@ public class Customer {
 	
 
 //	override objects equal method to check email (PK)
-	@Override
-	public boolean equals(Object obj) {
-		System.out.println("In object class override equal method");
-		if (obj instanceof Customer) {
-			Customer c = (Customer) obj;
-			return this.email.equals(c.email);
-		}
-		return false;
-	}
+//	@Override
+//	public boolean equals(Object obj) {
+//		System.out.println("In object class override equal method");
+//		if (obj instanceof Customer) {
+//			Customer c = (Customer) obj;
+//			return this.email.equals(c.email);
+//		}
+//		return false;
+//	}
 
 }

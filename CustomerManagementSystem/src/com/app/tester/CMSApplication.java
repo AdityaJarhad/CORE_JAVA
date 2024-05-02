@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.app.core.Customer;
+import com.app.utils.CMSUtils;
 import com.app.utils.CMSValidations;
 
 public class CMSApplication {
@@ -33,12 +34,15 @@ public class CMSApplication {
 
 					case 2:
 						System.out.println("Enter Your email & password");
-						CMSValidations.checkEmailAndPasswdToSignin(sc.next(),sc.next(),customerList);
-						
+						customer = CMSUtils.checkEmailAndPasswdToSignin(sc.next(),sc.next(),customerList);
+						System.out.println("Succesful login \nUser Details : "+customer);
 
 						break;
 
 					case 3:
+						System.out.println("Enter email, passwd & new Passwd");
+						CMSUtils.changePassword(sc.next(),sc.next(),sc.next(), customerList);
+						System.out.println("Passwd changed successfuly");
 
 						break;
 
@@ -47,7 +51,9 @@ public class CMSApplication {
 						break;
 
 					case 5:
-
+						System.out.println("Your details : ");
+						for(Customer i : customerList)
+							System.out.println(i);
 						break;
 
 					default:

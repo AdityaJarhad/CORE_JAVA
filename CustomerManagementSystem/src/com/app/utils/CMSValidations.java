@@ -43,21 +43,21 @@ public class CMSValidations {
 	}
 	
 //	to sign in check email and password
-	public static Customer checkEmailAndPasswdToSignin(String email, String password, List<Customer> customerList) throws CMSexception
-	{
-		//chk email and passwd
-		Customer c = new Customer(email,password);
-		for(Customer c1: customerList)
-		{
-		if(c.getEmail().equals(c1.getEmail()) && c.getPassword().equals(c1.getPassword()))
-		{
-			System.out.println("Successfully Logged in ...");
-			return new Customer(email,password);
-			
-		}
-		}
-		throw new CMSexception("UserId or Password is wrong!");
-	}
+//	public static Customer checkEmailAndPasswdToSignin(String email, String password, List<Customer> customerList) throws CMSexception
+//	{
+//		//chk email and passwd
+//		Customer c = new Customer(email,password);
+//		for(Customer c1: customerList)
+//		{
+//		if(c.getEmail().equals(c1.getEmail()) && c.getPassword().equals(c1.getPassword()))
+//		{
+//			System.out.println("Successfully Logged in ...");
+//			return new Customer(email,password);
+//			
+//		}
+//		}
+//		throw new CMSexception("UserId or Password is wrong!");
+//	}
 	
 	
 //	add methods to validate customer all details
