@@ -1,10 +1,12 @@
 package com.app.tester;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 import com.app.core.Customer;
+import com.app.sorting.SortCustomer;
 import com.app.utils.CMSUtils;
 import com.app.utils.CMSValidations;
 
@@ -19,7 +21,8 @@ public class CMSApplication {
 			
 				while (!exit) {
 					System.out.println(
-							"\nEnter 1.Sign up \n2.Sign in \n3.Change password \n4.Un subscribe customer \n5.Display all customers \n0.Exit ");
+							"\nEnter 1.Sign up \n2.Sign in \n3.Change password \n4.Un subscribe customer \n"
+							+ "5.Display all customers \n6.Sort by dob\n7.Sort by DOB and desc balance\n0.Exit ");
 					System.out.println("Choose");
 					try {
 					switch (sc.nextInt()) {
@@ -34,8 +37,8 @@ public class CMSApplication {
 
 					case 2:
 						System.out.println("Enter Your email & password");
-						customer = CMSUtils.checkEmailAndPasswdToSignin(sc.next(),sc.next(),customerList);
-						System.out.println("Succesful login \nUser Details : "+customer);
+						Customer customer2 = CMSUtils.checkEmailAndPasswdToSignin(sc.next(),sc.next(),customerList);
+						System.out.println("Succesful login \nUser Details : "+customer2);
 
 						break;
 
@@ -47,6 +50,9 @@ public class CMSApplication {
 						break;
 
 					case 4:
+						System.out.println("Enter Your email and passwd to confirm Un-subscribe account");
+//						customer = CMSUtils.unSubscribe(sc.next(), sc.next(), customerList);
+//						System.out.println("Below removed successfully\n"+customer);
 
 						break;
 
@@ -54,6 +60,16 @@ public class CMSApplication {
 						System.out.println("Your details : ");
 						for(Customer i : customerList)
 							System.out.println(i);
+						break;
+						
+					case 6:
+						
+						break;
+						
+					case 7:
+						System.out.println("Sorting details by DOB and lastname");
+						Collections.sort(customerList, new SortCustomer());
+						System.out.println("Sorting successsful");
 						break;
 
 					default:

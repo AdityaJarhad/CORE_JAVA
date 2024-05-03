@@ -9,7 +9,7 @@ public class CMSUtils {
 
 	public static Customer checkEmailAndPasswdToSignin(String email, String passwd, List<Customer> custList) throws CMSexception{
 //		1. indexOf
-//		serching --by PK --yes --ci=ontains | indexOf
+//		serching --by PK --yes --contains | indexOf
 //		contains : not useful retns boolean
 		
 //		A. public int indexOf(object o)
@@ -19,7 +19,7 @@ public class CMSUtils {
 //		2. invalid email : throw customer exc
 		int index = custList.indexOf(c);
 		
-		if(index == -1)
+		if(index < 0)
 			throw new CMSexception("Invalid email !!");
 		
 		Customer c1 = custList.get(index);
@@ -51,6 +51,17 @@ public class CMSUtils {
 	{
 		Customer customer = checkEmailAndPasswdToSignin(email,passwd,clist);
 		clist.get(clist.indexOf(customer)).setPassword(newPasswd);
+	}
+	
+//	Unsubscribe account
+	public static Customer unSubscribe(String email, String passwd, List<Customer> unlist) throws CMSexception
+	{
+		Customer c1 = new Customer(email,passwd);
+		checkEmailAndPasswdToSignin(email, passwd, unlist);
+		int index = unlist.indexOf(c1);
+		if(index == -1)
+			throw new CMSexception("Invalid details! Un-subscription failed");
+		return unlist.remove(index);
 	}
 	
 	
