@@ -1,8 +1,12 @@
 package com.app.utils;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.app.core.Customer;
+import com.app.core.ServicePlan;
 import com.customerexception.CMSexception;
 
 public class CMSUtils {
@@ -32,20 +36,6 @@ public class CMSUtils {
 		throw new CMSexception("Invalid passwd, login failed");
 	}
 		
-//		if(custList.contains(c))
-//		{
-//			System.out.println("Email verified ");
-//			int idx = custList.indexOf(c);
-//			if(custList.get(idx).getPassword().equals(passwd))
-//			{
-//				System.out.println("Password verified");
-//				return c;
-//			}
-//			throw new CMSexception("wrong password");
-//			
-//		}
-//		throw new CMSexception("wrong email");
-			
 		
 	public static void changePassword(String email, String passwd, String newPasswd, List<Customer> clist) throws CMSexception
 	{
@@ -62,6 +52,26 @@ public class CMSUtils {
 		if(index == -1)
 			throw new CMSexception("Invalid details! Un-subscription failed");
 		return unlist.remove(index);
+	}
+	
+	
+	public static void removeAcntByDobPlan(String dob, String plan, List<Customer> custlist) {
+		
+		System.out.println("In remove acnt by dob and plan");
+		LocalDate ld = LocalDate.parse(dob);
+		ServicePlan sp = ServicePlan.valueOf(plan.toUpperCase());
+	
+		Iterator<Customer> itr = custlist.iterator();
+		while(itr.hasNext())
+		{
+			Customer c2= itr.next();
+			if(c2.getDob().isAfter(ld) && c2.getPlan() == sp)
+			{
+				 itr.remove();
+				
+			}
+		}
+		
 	}
 	
 	

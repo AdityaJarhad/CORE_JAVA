@@ -2,9 +2,7 @@ package com.app.core;
 
 import java.time.LocalDate;
 
-import org.w3c.dom.DOMImplementationSource;
-
-public class Customer implements Comparable<Customer> {
+public class Customer {
 //1.Customer should be assigned system generated (auto increment) customer id : int
 //Store - first name, last name email(string),password(string),registrationAmount(double),
 //	dob(LocalDate),plan(ServicePlan : enum)
@@ -32,27 +30,6 @@ public class Customer implements Comparable<Customer> {
 		this.plan = plan;
 	}
 
-	@Override
-	public int compareTo(Customer o) {
-		System.out.println("In compareTo method");
-		if(this.dob.isBefore(o.dob))
-			return -1;
-		if(this.dob.equals(o.dob))
-			return 0;
-		return 1;
-	}
-
-//	add overloaded cnstr : , to wrap pk (email)
-	public Customer(String email) {
-		super();
-		this.email = email;
-	}
-
-	public Customer(String email, String password) {
-		super();
-		this.email = email;
-		this.password = password;
-	}
 
 	public int getUID() {
 		return UID;
@@ -132,17 +109,6 @@ public class Customer implements Comparable<Customer> {
 		return "User ID : " + UID + " firstname : " + firstname + " lastname : " + lastname + " Email ID : " + email
 				+ " Password : " + password + " registrationAmount : " + registrationAmount + " Birth date : " + dob
 				+ " ServicePlan : " + plan;
-	}
-
-//	override objects equal method to check email (PK)
-	@Override
-	public boolean equals(Object obj) {
-		System.out.println("In object class override equal method");
-		if (obj instanceof Customer) {
-			Customer c = (Customer) obj;
-			return this.email.equals(c.email);
-		}
-		return false;
 	}
 
 }

@@ -1,9 +1,7 @@
 package com.app.utils;
 
 import java.time.LocalDate;
-import java.util.List;
-
-import javax.naming.BinaryRefAddr;
+import java.util.Map;
 
 import com.app.core.Customer;
 import com.app.core.ServicePlan;
@@ -13,14 +11,14 @@ import com.customerexception.CMSexception;
 public class CMSValidations {
 //	4.1 no dup customers (2 customers can't have the same email id)
 //(i.e if the customer tries to register using existing email , raise custom exception)
-	public static void checkForDupCustomer(String email, List<Customer> customerList) throws CMSexception
+	public static void checkForDupCustomer(String email, Map<Integer, Customer> customerMap) throws CMSexception
 	{
-		// create customer class instance wrapping PK	
-		Customer c1 = new Customer(email);
-		for (Customer a : customerList) {
-			if (a.getEmail().equals(c1.getEmail()))
-				throw new CMSexception("Duplicate email found! Use another mail id ...");
-		}
+		for(Customer c : customerMap.values())
+			if (c.getEmail().equals(email))
+				System.out.println(c);
+			
+		throw new CMSexception("Duplicate email found! Use another mail id ...");
+			
 	}
 	
 //	4.2 Validate plan
@@ -45,7 +43,7 @@ public class CMSValidations {
 	
 //	add methods to validate customer all details
 	public static Customer validateCustomerInputs(String firstname, String lastname, String email, String password, double registrationAmount,
-			String dob, String plan, List<Customer> customers) throws CMSexception
+			String dob, String plan, Map<Integer, Customer> customers) throws CMSexception
 	{
 //		email pattern chk
 		validEmail(email);
