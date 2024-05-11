@@ -2,7 +2,7 @@ package com.app.core;
 
 import java.io.Serializable;
 
-public class Address implements Serializable{
+public class Address /* implements Serializable */ {
 
 	
 	private String city, state, phoneNo;

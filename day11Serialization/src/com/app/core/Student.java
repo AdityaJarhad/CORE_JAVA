@@ -5,12 +5,16 @@ import java.time.LocalDate;
 
 public class Student implements Serializable {
 	
+	/**
+	 * 
+	 */
+//	private static final long serialVersionUID = 2145744315722007568L;
 	private String rollNo;
 	private String name;
 	private LocalDate dob;
 	private Subject subject;
 	private double gpa;
-	private  Address address;
+	private transient Address address;
 
 	public Student(String rollNo, String name, LocalDate dob, Subject subject, double gpa) {
 		super();
