@@ -1,4 +1,4 @@
-package com.app.utils;
+package com.utils;
 
 import java.sql.*;
 
@@ -16,18 +16,17 @@ public class DBUtils {
 	public static Connection openConnection() 
 			throws /* ClassNotFoundException, */SQLException {
 		// OPTIONAL : load JDBC driver
-	//	Class.forName("com.mysql.cj.jdbc.Driver");
+//		Class.forName("com.mysql.cj.jdbc.Driver");
 		// get conneciton form DB : mandatory!
-		connection = DriverManager.getConnection
-				(DB_URL, USER_NAME, PASSWORD);//fixed connectivity
-		
+		connection = DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);
 		
 		return connection;
 	}
+	
 	//add a static method to close connection
-	public static void closeConnection() throws SQLException{
-		if(connection != null)
-			connection.close();
-		System.out.println("db cn closed !");
-	}
+		public static void closeConnection() throws SQLException{
+			if(connection != null)
+				connection.close();
+			System.out.println("db cn closed !");
+		}
 }

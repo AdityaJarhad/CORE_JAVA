@@ -1,17 +1,22 @@
 package com.app.dao;
 
-import java.sql.*;
+import static com.app.utils.DBUtils.closeConnection;
+import static com.app.utils.DBUtils.openConnection;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.app.utils.DBUtils.*;
 
 import com.app.entities.User;
 
 public class UserDaoImpl implements UserDao {
 	// state
 	private Connection cn;
-	private PreparedStatement pst1, pst2, pst3;
+	private PreparedStatement pst1, pst2, pst3, pst4, pst5;
 
 	// def ctor of the DAO layer
 	public UserDaoImpl() throws SQLException {
@@ -22,12 +27,15 @@ public class UserDaoImpl implements UserDao {
 		// pst2 : get user details
 		pst2 = cn.prepareStatement("select * from users where role='voter' and dob between ? and ?");
 		// pst3 : voter reg
-		/*
-		 * id | first_name | last_name | email | password | 
-		 * dob | status | role
-		 */
 		pst3 = cn.prepareStatement("insert into users values(default,?,?,?,?,?,?,?)");
 		System.out.println("user dao created...");
+		// pst4 : Passwd update
+		/*
+		 * id | first_name | last_name | email | password | dob | status | role
+		 */
+		pst4 = cn.prepareStatement("update user where email=? and password=? and role='voter'");
+
+//		pst5 = cn.prepareStatement("delete from user where email=? and password=?");
 	}
 
 	@Override
@@ -38,7 +46,7 @@ public class UserDaoImpl implements UserDao {
 		// 2. exec query
 		try (ResultSet rst = pst1.executeQuery()) {
 			// rst cursor : before the 1st row
-			
+
 			if (rst.next()) // => successful login
 				return new User(rst.getInt(1), rst.getString(2), rst.getString(3), email, password, rst.getDate(6),
 						rst.getBoolean(7), rst.getString(8));
@@ -66,8 +74,7 @@ public class UserDaoImpl implements UserDao {
 	public String voterRegistration(User newVoter) throws SQLException {
 		// 1. set IN params
 		/*
-		 * int userId, String firstName, String lastName, 
-		 * String email, String password,
+		 * int userId, String firstName, String lastName, String email, String password,
 		 * Date dob, boolean status, String role
 		 */
 		pst3.setString(1, newVoter.getFirstName());
@@ -77,12 +84,40 @@ public class UserDaoImpl implements UserDao {
 		pst3.setDate(5, newVoter.getDob());
 		pst3.setBoolean(6, newVoter.isStatus());
 		pst3.setString(7, newVoter.getRole());
-		//exec : executeUpdate
-		int rows=pst3.executeUpdate();
-		if(rows == 1)
+		// exec : executeUpdate
+		int rows = pst3.executeUpdate();
+		if (rows == 1)
 			return "Voter registered....";
 		return "Voter registration failed !";
 	}
+
+	// update user password
+	@Override
+	public String updatePasswd(String email, String oldPasswd, String newPasswd) throws SQLException {
+		// 1. set IN paramters
+		pst4.setString(1, email);
+		pst4.setString(2, oldPasswd);
+		pst4.setString(3, newPasswd);
+		//2. exec update : DML
+		int rows = pst4.executeUpdate();
+		if(rows == 1)
+			return "Password updated...";
+			
+		return "Password changing failed! invalid credentials ";
+	}
+	
+	//delete voter
+//	@Override
+//	public String deleteVoter(String email, String passwd) throws SQLException {
+//		// 1. set IN params
+//		pst5.setString(1, email);
+//		pst5.setString(2, passwd);
+//		//2. exec delete : DML
+//		int rows = pst5.executeUpdate();
+//		if(rows == 1)
+//			
+//		return null;
+//	}
 
 	// add clean up method to close DB resources
 	public void cleanUp() throws SQLException {
@@ -93,6 +128,8 @@ public class UserDaoImpl implements UserDao {
 			pst2.close();
 		if (pst3 != null)
 			pst3.close();
+		if (pst4 != null)
+			pst4.close();
 		closeConnection();
 	}
 

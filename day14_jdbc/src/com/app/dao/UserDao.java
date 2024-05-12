@@ -14,5 +14,8 @@ public interface UserDao {
 	List<User> getUserDetails(Date begin, Date end) throws SQLException;
 	// add a method for voter reg.
 	String voterRegistration(User newVoter) throws SQLException;
-	
+	//change passwd
+	String updatePasswd(String email, String oldPasswd, String newPasswd) throws SQLException;
+	//delete user
+//	String deleteVoter(String email, String passwd) throws SQLException;
 }
