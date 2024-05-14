@@ -15,6 +15,12 @@ public class Candidate {
 		this.votes = votes;
 	}
 	
+	public Candidate(String party, int votes) {
+		super();
+		this.party = party;
+		this.votes = votes;
+	}
+
 	public int getId() {
 		return id;
 	}

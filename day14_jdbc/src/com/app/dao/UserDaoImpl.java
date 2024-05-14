@@ -16,7 +16,7 @@ import com.app.entities.User;
 public class UserDaoImpl implements UserDao {
 	// state
 	private Connection cn;
-	private PreparedStatement pst1, pst2, pst3, pst4, pst5;
+	private PreparedStatement pst1, pst2, pst3, pst4;
 
 	// def ctor of the DAO layer
 	public UserDaoImpl() throws SQLException {
