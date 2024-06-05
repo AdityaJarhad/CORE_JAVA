@@ -8,15 +8,12 @@ import static java.time.LocalDate.parse;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.app.core.Address;
 import com.app.core.Student;
-import static java.util.Comparator.comparing;
 
 public class StudentCollectionUtils {
 	private static int index = 0;
