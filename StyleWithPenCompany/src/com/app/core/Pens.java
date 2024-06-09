@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Pens {
 
-	private int id;
+	private static int id;
 	private Brand brand;
 	private String color;
 	private String inkColor;
@@ -19,8 +19,8 @@ public class Pens {
 		super();
 	}
 
-	public Pens(Brand brand, String color, String inkColor, Material material, int stock, LocalDate updateDate,
-			LocalDate listingDate, float price, int discount) {
+	
+	public Pens(Brand brand, String color, String inkColor, Material material, int stock, float price, int discount) {
 		super();
 		++id;
 		this.brand = brand;
@@ -28,12 +28,11 @@ public class Pens {
 		this.inkColor = inkColor;
 		this.material = material;
 		this.stock = stock;
-		this.updateDate = updateDate;
-		this.listingDate = listingDate;
+		this.updateDate = LocalDate.now();
+		this.listingDate = LocalDate.now();
 		this.price = price;
-		this.discount = discount;
+		this.discount=discount;
 	}
-	
 	public Pens(Brand brand, String color, String inkColor, Material material, int stock, float price) {
 		super();
 		++id;
@@ -42,17 +41,18 @@ public class Pens {
 		this.inkColor = inkColor;
 		this.material = material;
 		this.stock = stock;
-		this.updateDate = updateDate.now();
-		this.listingDate = listingDate.now();
+		this.updateDate = LocalDate.now();
+		this.listingDate = LocalDate.now();
 		this.price = price;
+	}
+	
+	public Pens(int stock) {
+		super();
+		this.stock = stock;
 	}
 
 	public int getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public Brand getBrand() {
@@ -124,7 +124,7 @@ public class Pens {
 	}
 
 	public void setDiscount(int discount) {
-		this.discount = discount;
+		this.discount=discount;
 	}
 
 	@Override
